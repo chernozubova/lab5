@@ -2,12 +2,18 @@ import string
 import random
 
 
-import string
-import random
-
-
 def input_text():
-    return
+    input_type = input(
+        "Выберите тип ввода данных: \n1. вручную\n2. сгенерировать случайным образом\nВведите тип ввода данных: ")
+    if input_type == '1':
+        text = input("Введите текст: ")
+    elif input_type == '2':
+        n = int(input("Введите длину генерируемого текста: "))
+        text = ''.join(random.choice(string.ascii_letters + string.punctuation + " ") for _ in range(n))
+    else:
+        print("Неверный тип ввода данных")
+        text = None
+    return text
 
 
 def count(text):
@@ -40,9 +46,14 @@ def main():
         point = input("Введите пункт меню: ")
 
         if point == "1":
-            pass
+            text = input_text()
         elif point == "2":
-            pass
+            if 'text' in locals():
+                result = count(text)
+                print("Исходные данные: ", text)
+                print("Задание решено")
+            else:
+                print("Исходные данные не введены")
         elif point == "3":
             if 'result' in locals():
                 cnt_lowercase, cnt_uppercase, cnt_punctuation, cnt_whitespace = result
@@ -53,15 +64,12 @@ def main():
                 print("Количество пробелов:", cnt_whitespace)
             else:
                 print("Входные данные не сгенерированы")
-            pass
         elif point == "4":
             print("Программа завершена")
             break
-            pass
         else:
             print("Выберите верный пункт меню")
-            pass
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
